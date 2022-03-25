@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: matic
+    source:
+      address: "0xdb7cb471dd0b49b29cab4a1c14d070f27216a0ab"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ProxyOwnerUpdate
+        - ProxyUpdated
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: ProxyOwnerUpdate(address,address)
+          handler: handleProxyOwnerUpdate
+        - event: ProxyUpdated(indexed address,indexed address)
+          handler: handleProxyUpdated
+      file: ./src/mapping.ts
